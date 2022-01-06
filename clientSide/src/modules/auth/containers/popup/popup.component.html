@@ -1,0 +1,56 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title" *ngIf="type=='per'">Create Permission</h4>
+    <h4 class="modal-title" id="modal-basic-2" *ngIf="type=='role'">Create Role</h4>
+    <h4 class="modal-title" id="modal-basic-3" *ngIf="type=='user'">Assign Role to User</h4>
+    <h4 class="modal-title" id="modal-basic-3" *ngIf="type=='user_create'">Create New User</h4>
+    <button type="button" class="close" aria-label="Close" (click)="passBack()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body" *ngIf="type!='user_view' && type != 'user_create'">
+    <form>
+        <div class="form-group">
+            <label for="value" *ngIf="type=='per'">Permission</label>
+            <label for="value" *ngIf="type=='role'">Role Name:</label>
+            <label for="value" *ngIf="type=='user'">User Role</label>
+            <div class="input-group" *ngIf="type!='user' && type!='user_create'">
+                <input id="value" class="form-control" name="dp" type="text" [(ngModel)]="value">
+            </div>
+            <br>
+            <div *ngIf="type!='per'">
+                <div *ngFor="let perm of selectedValues">
+
+                    <div style="padding: 5px">
+                        <input type="checkbox" [(ngModel)]="perm.selected" [name]="perm.name" />
+                        <label style="padding-left: 10px;">{{perm.name | titlecase}}</label>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-body" *ngIf="type=='user_create'">
+    <form>
+        <div class="form-group">
+            <label for="firstName">Firstname :</label>
+            <input type="text" id="firstName" name="firstName" class="form-control" [(ngModel)]="user.firstname">
+        </div>
+        <div class="form-group">
+            <label for="lastname">Lastname :</label>
+            <input type="text" id="lastname" name="lastname" class="form-control" [(ngModel)]="user.lastname">
+        </div>
+        <div class="form-group">
+            <label for="email">Email :</label>
+            <input type="text" id="email" name="email" class="form-control" [(ngModel)]="user.email">
+        </div>
+        <div class="form-group">
+            <label for="password">Password :</label>
+            <input type="password" id="password" name="password" class="form-control" [(ngModel)]="user.password">
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="save()">Save</button>
+</div>

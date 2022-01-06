@@ -1,0 +1,78 @@
+<sb-layout-dashboard>
+    <div class="row">
+        <div class="col mt-5">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title h3">Users Management</span>
+                    <ul class="nav nav-pills card-header-pills float-right">
+                        <li class="nav-item">
+                            <a class="nav-link active" (click)="newUser()">
+                                <fa-icon [icon]='["fas", "plus"]'></fa-icon> New
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body" style="padding: 0 !important">
+
+                    <div *ngIf="isLoading" class="text-center">
+                        <div class="loadingio-spinner-ripple-rl7yam0bupg">
+                            <div class="loading-spinner">
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table *ngIf="!isLoading" class="table  thead-light">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col"><span>Firstname</span></th>
+                                <th scope="col"><span>Lastname</span></th>
+                                <th scope="col"><span>Email</span></th>
+                                <th scope="col"><span>Roles</span></th>
+                                <th scope="col"><span>Created_at</span></th>
+                                <th scope="col"><span>Updated_at</span></th>
+                                <th scope="col"><span>Actions</span></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="users.length>0">
+                            <tr *ngFor="let user of users">
+                                <td scope="row">{{ user.id }}</td>
+                                <td scope="row">{{ user.firstname }}</td>
+                                <td scope="row">{{ user.lastname }}</td>
+                                <td scope="row">{{ user.email }}</td>
+                                <td scope="row">
+                                    <span *ngFor="let role of user.roles" class="badge badge-secondary"
+                                        style="font-weight: normal;margin: 5px "> {{
+                                        role.name | titlecase }}</span>
+
+                                    <span *ngIf="user.roles.length == 0">-</span>
+                                </td>
+                                <td scope="row">{{ user.updated_at | date }}</td>
+                                <td scope="row">{{ user.created_at | date}}</td>
+                                <td scope="row">
+                                    <div class="button-group">
+                                        <button class="btn btn-primary btn-sm mr-2" (click)="handleUser(user.id)">Assign
+                                            Role</button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="!users.length>0">
+                            NO DATA
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</sb-layout-dashboard>

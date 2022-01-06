@@ -1,0 +1,73 @@
+<sb-layout-dashboard>
+    <div class="row">
+        <div class="col mt-5">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title h3">Permissions Management</span>
+                    <ul class="nav nav-pills card-header-pills float-right">
+                        <li class="nav-item">
+                            <a class="nav-link active" (click)="newPermissions()">
+                                <fa-icon [icon]='["fas", "plus"]'></fa-icon> New
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body" style="padding: 0 !important">
+
+                    <div *ngIf="isLoading" class="text-center">
+
+
+                        <div class="loadingio-spinner-ripple-rl7yam0bupg">
+                            <div class="loading-spinner">
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table *ngIf="!isLoading" class="table thead-light">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col"><span>Name</span></th>
+                                <th scope="col"><span>Guard_name</span></th>
+                                <th scope="col"><span>Role</span></th>
+                                <th scope="col"><span>Created_at</span></th>
+                                <th scope="col"><span>Updated_at</span></th>
+
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="permissions.length>0">
+                            <tr *ngFor="let role of permissions">
+                                <td scope="row">{{ role.id }}</td>
+                                <td scope="row">{{ role.name | titlecase}}</td>
+                                <td scope="row">{{ role.guard_name }}</td>
+                                <td scope="row">
+                                    <span *ngFor="let permission of role.roles" class="badge badge-secondary"
+                                    style="font-weight: normal;margin: 5px "> {{
+                                    permission.name | titlecase }}</span>
+
+                                <span *ngIf="role.roles.length == 0">-</span>
+                                </td>
+
+
+                                <td scope="row">{{ role.created_at | date}}</td>
+                                <td scope="row">{{ role.updated_at | date }}</td>
+
+
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="!permissions.length>0">
+                            NO DATA
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</sb-layout-dashboard>
